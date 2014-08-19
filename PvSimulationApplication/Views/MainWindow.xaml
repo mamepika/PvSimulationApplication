@@ -5,8 +5,9 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:v="clr-namespace:PvSimulationApplication.Views"
+        xmlns:toolkit="clr-namespace:eisiWare;assembly=NumericUpDown"
         xmlns:vm="clr-namespace:PvSimulationApplication.ViewModels"
-        Title="MainWindow" Height="480" Width="720">
+        Title="太陽光発電シミュレーション" Height="480" Width="320" ResizeMode="NoResize">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -32,21 +33,36 @@
     </i:Interaction.Triggers>
 
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="627,416,0,0" VerticalAlignment="Top" Width="75">
-            
+        <Button Content="シミュレーション開始" HorizontalAlignment="Left" Margin="146,418,0,0" VerticalAlignment="Top" Width="150">
+
         </Button>
 
-        <ComboBox x:Name="MetropolisBox" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Width="150" ItemsSource="{Binding Metropolises}" SelectedValue="{Binding SelectedMetropolis}">
-            
+        <ComboBox x:Name="MetropolisBox" HorizontalAlignment="Left" Margin="146,27,0,0" VerticalAlignment="Top" Width="150" ItemsSource="{Binding Metropolises}" SelectedValue="{Binding SelectedMetropolis}">
+
         </ComboBox>
-        <ComboBox x:Name="CityBox" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Width="150" ItemsSource="{Binding Cities}" />
-        <Button Content="計算" HorizontalAlignment="Left" Margin="10,416,0,0" VerticalAlignment="Top" Width="75">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Click">
-                    <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Calc"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </Button>
-
+        <ComboBox x:Name="CityBox" HorizontalAlignment="Left" Margin="146,56,0,0" VerticalAlignment="Top" Width="150" ItemsSource="{Binding Cities}" />
+        <Label Content="都道府県" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top"/>
+        <Label Content="市町村" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="146,124,0,0" VerticalAlignment="Top" Width="150" ItemsSource="{Binding PhotovoltaicModules}" RenderTransformOrigin="0.727,0.667"/>
+        <Label Content="モジュール" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top"/>
+        <GroupBox Header="設置方向" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Height="111" Width="151" RenderTransformOrigin="0.5,0.5">
+            <GroupBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.796"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-0.486"/>
+                </TransformGroup>
+            </GroupBox.RenderTransform>
+            <StackPanel HorizontalAlignment="Left" Height="67" Margin="10,10,-2,0" VerticalAlignment="Top" Width="131">
+                <RadioButton Content="東" VerticalAlignment="Center"/>
+                <RadioButton Content="南" VerticalAlignment="Center"/>
+                <RadioButton Content="西" VerticalAlignment="Center"/>
+            </StackPanel>
+        </GroupBox>
+        <toolkit:NumericUpDown Margin="139,162,10,254" MinValue="0" ></toolkit:NumericUpDown>
+        <Label Content="モジュール枚数" HorizontalAlignment="Left" Margin="10,157,0,0" VerticalAlignment="Top"/>
+        <Label Content="モジュール傾斜角" HorizontalAlignment="Left" Margin="15,322,0,0" VerticalAlignment="Top"/>
+        <toolkit:NumericUpDown Margin="139,322,10,91" MinValue="0" Step="15" MaxValue="90" Value="{Binding InclineAngle}"></toolkit:NumericUpDown>
     </Grid>
 </Window>

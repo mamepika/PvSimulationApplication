@@ -14,5 +14,9 @@ namespace PvSimulationApplication.Models
         public DbSet<Metropolis> Metropolises { get; set; }
 
         public DbSet<City> Cities { get; set; }
+
+        public DbSet<SolarRadiation> SolarRadiations { get; set; }
+
+        public DbSet<PhotovoltaicModule> PhotovoltaicModules { get; set; }
     }
 }

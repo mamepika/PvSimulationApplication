@@ -21,6 +21,7 @@ namespace PvSimulationApplication.ViewModels
     {
         private CityRepository cityRepo = new CityRepository();
         private MetropolisRepository metroRepo = new MetropolisRepository();
+        private PhotovoltaicModuleRepository photoRepo = new PhotovoltaicModuleRepository();
 
         public void Initialize()
         {
@@ -31,6 +32,24 @@ namespace PvSimulationApplication.ViewModels
         {
             Console.WriteLine("計算結果は" + 10 + "です。");
         }
+
+
+        #region 太陽光モジュールプロパティ変更通知
+        private List<PhotovoltaicModule> _photvoltaicModules;
+
+        public List<PhotovoltaicModule> PhotovoltaicModules
+        {
+            get
+            {
+                if (_photvoltaicModules == null)
+                {
+                    _photvoltaicModules = photoRepo.FindAll();
+                }
+                return _photvoltaicModules;
+            }
+        }
+        #endregion
+
 
         #region 都市プロパティ変更通知
         private List<Metropolis> metropolises;
@@ -43,18 +62,6 @@ namespace PvSimulationApplication.ViewModels
                     metropolises = metroRepo.FindAll();
                 }
                 return this.metropolises;
-            }
-        }
-        #endregion
-
-        #region selectedMetropolis　選択された都市
-        private Metropolis selectedMetropolis;
-        public Metropolis SelectedMetropolis
-        {
-            set
-            {
-                selectedMetropolis = value;
-                SetCitiesByMetropolisId();
             }
         }
         #endregion
@@ -78,6 +85,38 @@ namespace PvSimulationApplication.ViewModels
             RaisePropertyChanged("Cities");
         }
         #endregion
+
+        #region selectedMetropolis　選択された都市
+        private Metropolis selectedMetropolis;
+        public Metropolis SelectedMetropolis
+        {
+            set
+            {
+                selectedMetropolis = value;
+                SetCitiesByMetropolisId();
+            }
+        }
+        #endregion
+
+        private int _inclineAngle;
+
+        public int InclineAngle
+        {
+            set
+            {
+                _inclineAngle = value;
+            }
+        }
+
+        private int _directionAngle;
+
+        public int DirectionAngle
+        {
+            set
+            {
+                _directionAngle = value;
+            }
+        }
 
         #region 最初のコメント
         /* コマンド、プロパティの定義にはそれぞれ 
